@@ -1,20 +1,16 @@
 from cmu_graphics import *
 import random
-# from time import sleep
-app.background = "orange"
 possibleSymbols = ['snowman', 'snowflake', 'present', 'wreath']
 app.symbols = possibleSymbols + possibleSymbols
 random.shuffle(app.symbols)
-app.symbols = possibleSymbols + possibleSymbols
-app.url1 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[0]}.png"
-app.url2 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[1]}.png"
-app.url3 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[2]}.png"
-app.url4 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[3]}.png"
-app.url5 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[4]}.png"
-app.url6 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[5]}.png"
-app.url7 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[6]}.png"
-app.url8 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[7]}.png"
-Image(app.url1, 0, 0, width=100, height=100)
+Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[0]}.png", 10, 50, width=100, height=100)
+Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[1]}.png", 135, 50, width=100, height=100)
+Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[2]}.png", 260, 50, width=100, height=100)
+Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[3]}.png", 385, 50, width=100, height=100)
+Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[4]}.png", 10, 250, width=100, height=100)
+Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[5]}.png", 135, 250, width=100, height=100)
+Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[6]}.png", 260, 250, width=100, height=100)
+Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[7]}.png", 385, 250, width=100, height=100)
 card1 = Rect(0,0,125,200, border='black',fill='white')
 card2 = Rect(125,0,125,200, border='black',fill='white')
 card3 = Rect(250,0,125,200, border='black',fill='white')
@@ -25,14 +21,17 @@ card7 = Rect(250,200,125,200, border='black',fill='white')
 card8 = Rect(375,200,125,200, border='black',fill='white')
 app.firstCardUp = False
 app.bothCardsUp = False
+app.firstCardIdentifier = 0
+app.secondCardIdentifier = 0
 def onMousePress(mouseX,mouseY):
     if mouseX < 125 and mouseX >= 0 and mouseY < 200:
-        card1.visible = False
+        card1.fill = None
         if app.firstCardUp == True:
             app.bothCardsUp = True
             app.firstCardUp = False
         else:
             app.firstCardUp = True
+            app.firstCardIdentifier
     elif mouseX < 250 and mouseX > 125 and mouseY < 200:
         card2.fill = None
         if app.firstCardUp == True:
@@ -82,4 +81,17 @@ def onMousePress(mouseX,mouseY):
             app.firstCardUp = False
         else:
             app.firstCardUp = True
+def resetAllCards():
+    card1.fill = "white"
+    card2.fill = "white"
+    card3.fill = "white"
+    card4.fill = "white"
+    card5.fill = "white"
+    card6.fill = "white"
+    card7.fill = "white"
+    card8.fill = "white"
+    app.firstCardUp = False
+    app.bothCardsUp = False
+    app.firstCardIdentifier = 0
+    app.secondCardIdentifier = 0
 cmu_graphics.run()

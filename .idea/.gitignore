@@ -3,3 +3,8 @@
 /workspace.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+# Zencoder local files
+/zencoder
+/zencoder-chat-index.xml
+/zencoder-chats-dedicated.xml
+/material_theme_project_new.xml
