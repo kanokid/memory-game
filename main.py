@@ -11,7 +11,10 @@ card8 = Rect(375,200,125,200, border='black',fill='white')
 app.firstCardUp = False
 app.bothCardsUp = False
 possibleSymbols = ['snowman', 'snowflake', 'present', 'wreath']
-random.randint(0,3)
+base_symbols = list(range(4))
+board_symbols = base_symbols + base_symbols
+random.shuffle(board_symbols)
+app.board_symbols = board_symbols
 def onMousePress(mouseX,mouseY):
     if mouseX < 125 and mouseX >= 0 and mouseY < 200:
         card1.fill = None
