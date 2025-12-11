@@ -1,5 +1,6 @@
 from cmu_graphics import *
 import random
+from time import sleep
 possibleSymbols = ['snowman', 'snowflake', 'present', 'wreath']
 app.symbols = possibleSymbols + possibleSymbols
 random.shuffle(app.symbols)
@@ -29,58 +30,76 @@ def onMousePress(mouseX,mouseY):
         if app.firstCardUp == True:
             app.bothCardsUp = True
             app.firstCardUp = False
+            app.secondCardIdentifier = 1
         else:
             app.firstCardUp = True
-            app.firstCardIdentifier
+            app.firstCardIdentifier = 1
     elif mouseX < 250 and mouseX > 125 and mouseY < 200:
         card2.fill = None
         if app.firstCardUp == True:
             app.bothCardsUp = True
             app.firstCardUp = False
+            app.secondCardIdentifier = 2
         else:
             app.firstCardUp = True
+            app.firstCardIdentifier = 2
     elif mouseX < 375 and mouseX > 250 and mouseY < 200:
         card3.fill = None
         if app.firstCardUp == True:
             app.bothCardsUp = True
             app.firstCardUp = False
+            app.secondCardIdentifier = 3
         else:
             app.firstCardUp = True
+            app.firstCardIdentifier = 3
     elif mouseX < 500 and mouseX > 375 and mouseY < 200:
         card4.fill = None
         if app.firstCardUp == True:
             app.bothCardsUp = True
             app.firstCardUp = False
+            app.secondCardIdentifier = 4
         else:
             app.firstCardUp = True
+            app.firstCardIdentifier = 4
     elif mouseX < 125 and mouseX > 0 and mouseY > 200:
         card5.fill = None
         if app.firstCardUp == True:
             app.bothCardsUp = True
             app.firstCardUp = False
+            app.secondCardIdentifier = 5
         else:
             app.firstCardUp = True
+            app.firstCardIdentifier = 5
     elif mouseX < 250 and mouseX > 125 and mouseY > 200:
         card6.fill = None
         if app.firstCardUp == True:
             app.bothCardsUp = True
             app.firstCardUp = False
+            app.secondCardIdentifier = 6
         else:
             app.firstCardUp = True
+            app.firstCardIdentifier = 6
     elif mouseX < 375 and mouseX > 250 and mouseY > 200:
         card7.fill = None
         if app.firstCardUp == True:
             app.bothCardsUp = True
             app.firstCardUp = False
+            app.secondCardIdentifier = 7
         else:
             app.firstCardUp = True
+            app.firstCardIdentifier = 7
     elif mouseX < 500 and mouseX > 375 and mouseY > 200:
         card8.fill = None
         if app.firstCardUp == True:
             app.bothCardsUp = True
             app.firstCardUp = False
+            app.secondCardIdentifier = 8
         else:
             app.firstCardUp = True
+            app.firstCardIdentifier = 8
+def checkIfMatch():
+    if app.firstCardIdentifier == app.secondCardIdentifier and app.firstCardIdentifier != 0 and app.secondCardIdentifier != 0:
+        pass
 def resetAllCards():
     card1.fill = "white"
     card2.fill = "white"
