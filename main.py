@@ -1,5 +1,20 @@
 from cmu_graphics import *
 import random
+# from time import sleep
+app.background = "orange"
+possibleSymbols = ['snowman', 'snowflake', 'present', 'wreath']
+app.symbols = possibleSymbols + possibleSymbols
+random.shuffle(app.symbols)
+app.symbols = possibleSymbols + possibleSymbols
+app.url1 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[0]}.png"
+app.url2 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[1]}.png"
+app.url3 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[2]}.png"
+app.url4 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[3]}.png"
+app.url5 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[4]}.png"
+app.url6 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[5]}.png"
+app.url7 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[6]}.png"
+app.url8 = f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[7]}.png"
+Image(app.url1, 0, 0, width=100, height=100)
 card1 = Rect(0,0,125,200, border='black',fill='white')
 card2 = Rect(125,0,125,200, border='black',fill='white')
 card3 = Rect(250,0,125,200, border='black',fill='white')
@@ -10,14 +25,9 @@ card7 = Rect(250,200,125,200, border='black',fill='white')
 card8 = Rect(375,200,125,200, border='black',fill='white')
 app.firstCardUp = False
 app.bothCardsUp = False
-possibleSymbols = ['snowman', 'snowflake', 'present', 'wreath']
-base_symbols = list(range(4))
-board_symbols = base_symbols + base_symbols
-random.shuffle(board_symbols)
-app.board_symbols = board_symbols
 def onMousePress(mouseX,mouseY):
     if mouseX < 125 and mouseX >= 0 and mouseY < 200:
-        card1.fill = None
+        card1.visible = False
         if app.firstCardUp == True:
             app.bothCardsUp = True
             app.firstCardUp = False
