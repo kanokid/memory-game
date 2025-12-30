@@ -1,0 +1,1 @@
+.\python_and_cmu_graphics\python.exe main.py
