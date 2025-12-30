@@ -4,9 +4,10 @@ app.width = 500
 app.stepsPerSecond = 100
 possibleSymbols = ['snowman', 'snowflake', 'present', 'wreath']
 
-# ... existing code ...
 app.symbols = possibleSymbols + possibleSymbols
-levelWin = Sound('https://raw.githubusercontent.com/kanokid/memory-game/master/sound%20effects/win.mp3')
+youWin = Sound('https://raw.githubusercontent.com/kanokid/memory-game/master/sound%20effects/win.mp3')
+
+app.roundsPlayed = 0
 def playMatchingGame():
     random.shuffle(app.symbols)
     Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[0]}.png", 10, 50, width=100, height=100)
@@ -25,13 +26,16 @@ def playMatchingGame():
     app.card6 = Rect(125,200,125,200, border='black',fill='white')
     app.card7 = Rect(250,200,125,200, border='black',fill='white')
     app.card8 = Rect(375,200,125,200, border='black',fill='white')
+
+    app.coverAllCards = Rect(0, 0, 500, 400, fill='white', visible=False)
+    app.roundsPlayedCounter = Label(app.roundsPlayed,275,25,size = 20, border='black')
+    app.victoryLabel = Label('You win!', 250, 200, size=125, visible=False)
     app.firstCardUp = False
     app.bothCardsUp = False
     app.firstCardIdentifier = 0
     app.secondCardIdentifier = 0
     app.matchCheckTimer = 0
     app.matchedCards = []
-    app.coverAllCards = Rect(0,0,500,400, fill='white', visible=False)
 def onMousePress(mouseX,mouseY):
     if app.matchCheckTimer > 0:
         return
@@ -122,6 +126,7 @@ def onMousePress(mouseX,mouseY):
             if app.bothCardsUp == True:
                 app.matchCheckTimer = 75
 
+
 def checkIfMatch():
     if app.symbols[app.firstCardIdentifier-1]  == app.symbols[app.secondCardIdentifier-1] and app.firstCardIdentifier != 0 and app.secondCardIdentifier != 0:
         app.matchedCards.append(app.firstCardIdentifier)
@@ -164,11 +169,13 @@ def resetAllCards():
     app.card6.fill = "white"
     app.card7.fill = "white"
     app.card8.fill = "white"
+    app.victoryLabel.visible = False
     app.firstCardUp = False
     app.bothCardsUp = False
     app.firstCardIdentifier = 0
     app.secondCardIdentifier = 0
     app.coverAllCards.visible = False
+
 
 def onStep():
     if app.matchCheckTimer > 0:
@@ -187,8 +194,11 @@ def onStep():
 
 def victorySequence():
     print("You win!")
-    Label('You win!',250,200,size=125)
+    app.roundsPlayed += 1
+    app.roundsPlayedCounter.value = app.roundsPlayed
+    app.victoryLabel.visible = True
     app.coverAllCards.visible = True
+    youWin.play()
 playMatchingGame()
 #victorySequence()
 cmu_graphics.run()
