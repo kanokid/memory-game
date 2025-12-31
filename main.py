@@ -7,17 +7,17 @@ possibleSymbols = ['snowman', 'snowflake', 'present', 'wreath']
 app.symbols = possibleSymbols + possibleSymbols
 youWin = Sound('https://raw.githubusercontent.com/kanokid/memory-game/master/sound%20effects/win.mp3')
 
-app.roundsPlayed = 0
+app.roundsPlayed = 1
 def playMatchingGame():
     random.shuffle(app.symbols)
-    Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[0]}.png", 10, 50, width=100, height=100)
-    Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[1]}.png", 135, 50, width=100, height=100)
-    Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[2]}.png", 260, 50, width=100, height=100)
-    Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[3]}.png", 385, 50, width=100, height=100)
-    Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[4]}.png", 10, 250, width=100, height=100)
-    Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[5]}.png", 135, 250, width=100, height=100)
-    Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[6]}.png", 260, 250, width=100, height=100)
-    Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[7]}.png", 385, 250, width=100, height=100)
+    app.image1 = Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[0]}.png", 10, 50, width=100, height=100)
+    app.image2 = Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[1]}.png", 135, 50, width=100, height=100)
+    app.image3 = Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[2]}.png", 260, 50, width=100, height=100)
+    app.image4 = Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[3]}.png", 385, 50, width=100, height=100)
+    app.image5 = Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[4]}.png", 10, 250, width=100, height=100)
+    app.image6 = Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[5]}.png", 135, 250, width=100, height=100)
+    app.image7 = Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[6]}.png", 260, 250, width=100, height=100)
+    app.image8 = Image(f"https://raw.githubusercontent.com/kanokid/memory-game/master/icons/{app.symbols[7]}.png", 385, 250, width=100, height=100)
     app.card1 = Rect(0,0,125,200, border='black',fill='white')
     app.card2 = Rect(125,0,125,200, border='black',fill='white')
     app.card3 = Rect(250,0,125,200, border='black',fill='white')
@@ -27,7 +27,7 @@ def playMatchingGame():
     app.card7 = Rect(250,200,125,200, border='black',fill='white')
     app.card8 = Rect(375,200,125,200, border='black',fill='white')
 
-    app.coverAllCards = Rect(0, 0, 500, 400, fill='white', visible=False)
+#    app.coverAllCards = Rect(0, 0, 500, 400, fill='white', visible=False)
     app.roundsPlayedCounter = Label(app.roundsPlayed,275,25,size = 20, border='black')
     app.victoryLabel = Label('You win!', 250, 200, size=125, visible=False)
     app.firstCardUp = False
@@ -135,7 +135,6 @@ def checkIfMatch():
             victorySequence()
     else:
         resetNonMatchedCards()
-
     app.bothCardsUp = False
     app.firstCardUp = False
     app.firstCardIdentifier = 0
@@ -158,9 +157,10 @@ def resetNonMatchedCards():
         app.card7.fill = "white"
     if 8 not in app.matchedCards:
         app.card8.fill = "white"
-
+    app.matchIsWrong = False
 app.timeUntilReset = 400
 def resetAllCards():
+    """
     app.card1.fill = "white"
     app.card2.fill = "white"
     app.card3.fill = "white"
@@ -169,13 +169,14 @@ def resetAllCards():
     app.card6.fill = "white"
     app.card7.fill = "white"
     app.card8.fill = "white"
-    app.victoryLabel.visible = False
+    """
+    app.group.clear()
+#    app.victoryLabel.visible = False
     app.firstCardUp = False
     app.bothCardsUp = False
     app.firstCardIdentifier = 0
     app.secondCardIdentifier = 0
-    app.coverAllCards.visible = False
-
+#    app.coverAllCards.visible = False
 
 def onStep():
     if app.matchCheckTimer > 0:
@@ -189,15 +190,16 @@ def onStep():
             app.timeUntilReset -= 1
             if app.timeUntilReset == 0:
                 app.matchedCards = []
-                resetAllCards()
+                app.victoryLabel.visible = False
+                playMatchingGame()
                 app.timeUntilReset = 400
-
 def victorySequence():
+    resetAllCards()
     print("You win!")
     app.roundsPlayed += 1
     app.roundsPlayedCounter.value = app.roundsPlayed
     app.victoryLabel.visible = True
-    app.coverAllCards.visible = True
+#    app.coverAllCards.visible = True
     youWin.play()
 playMatchingGame()
 #victorySequence()
