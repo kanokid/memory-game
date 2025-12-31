@@ -28,6 +28,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         pip install cmu_graphics
+        sudo apt update && sudo apt install libcairo2-dev pkg-config python3-dev
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
