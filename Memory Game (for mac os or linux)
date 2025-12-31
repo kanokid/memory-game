@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# 1. System Dependency Check (Specific for Linux/WSL)
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    echo "---> Checking for system graphics libraries (Cairo)..."
+    # If cairo is missing, prompt the user to install it
+    if ! pkg-config --exists cairo; then
+        echo "Error: Missing 'libcairo2-dev'. Please run:"
+        echo "sudo apt update && sudo apt install libcairo2-dev pkg-config python3-dev"
+        echo "You might be missing the Cairo graphics library."
+        echo "If you have Homebrew, run: brew install cairo pkg-config"
+        echo "-------------------------------------------------------"
+        exit 1
+    fi
+# 2. Create the Virtual Environment
+# We use python3 as the standard command for Mac/Linux
+echo "---> Setting up virtual environment..."
+python3 -m venv .venv
+
+# 3. Install cmu-graphics inside the venv
+# Using 'python3 -m pip' ensures we use the venv's pip specifically
+echo "---> Installing cmu-graphics (this may take a minute)..."
+./.venv/bin/python3 -m pip install --upgrade pip
+./.venv/bin/python3 -m pip install cmu-graphics
+
+# 4. Launch the Game
+if [ -f "main.py" ]; then
+    echo "---> Launching Memory Game..."
+    ./.venv/bin/python3 main.py
+else
+    echo "Error: main.py not found!"
+fi
